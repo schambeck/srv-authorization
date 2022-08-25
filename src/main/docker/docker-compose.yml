@@ -1,0 +1,41 @@
+version: '3.9'
+services:
+  web:
+    image: srv-authorization:latest
+    restart: always
+    hostname: srv-authorization
+    networks:
+#      - schambeck-overlay
+      - schambeck-bridge
+      - backend
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          memory: 384M
+        reservations:
+          memory: 256M
+    ports:
+      - "9000:9000"
+  haproxy:
+    image: haproxytech/haproxy-alpine:latest
+    restart: always
+    container_name: srv-authorization-haproxy
+    hostname: srv-authorization
+    networks:
+#      - schambeck-overlay
+      - schambeck-bridge
+      - backend
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    ports:
+      - "4040:80"
+      - "8444:8404"
+    deploy:
+      replicas: 0
+networks:
+  schambeck-bridge:
+    external: true
+#  schambeck-overlay:
+#    external: true
+  backend: {}

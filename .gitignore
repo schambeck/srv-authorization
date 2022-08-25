@@ -1,0 +1,5 @@
+# Project exclude paths
+/target/
+/.idea/
+/srv-authorization-kg.log
+/.mvn/wrapper/maven-wrapper.jar
