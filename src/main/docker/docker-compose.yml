@@ -3,7 +3,7 @@ services:
   web:
     image: srv-authorization:latest
     networks:
-      - schambeck-overlay
+      - schambeck-net
     deploy:
       replicas: 1
       resources:
@@ -15,5 +15,5 @@ services:
       - target: 9000
         published: 9000
 networks:
-  schambeck-overlay:
+  schambeck-net:
     external: true
